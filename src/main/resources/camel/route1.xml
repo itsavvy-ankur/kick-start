@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Configures the Camel Context-->
 <routes xmlns="http://camel.apache.org/schema/spring">
-        <route>
+        <route id="fileroute">
             <from uri="file:src/data?noop=true"/>
             <choice>
                 <when>
@@ -10,10 +10,16 @@
                     <to uri="file:target/messages/uk"/>
                 </when>
                 <otherwise>
-                    <log message="Other message"/>
-                    <to uri="file:target/messages/others"/>
+                    <log message="XML Message : \n ${in.body}"/>
+
+
                 </otherwise>
             </choice>
         </route>
+
+<route id="tcpserver">
+    <from uri="netty4:tcp://localhost:9999?sync=true&amp;textline=true&amp;disconnectOnNoReply=true&amp;disconnect=true" />
+    <process ref="nettyXmlProcessor" />
+</route>
 </routes>
 
