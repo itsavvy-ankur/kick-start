@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context-->
+<routes xmlns="http://camel.apache.org/schema/spring">
+    <route id="cache-test">
+        <from uri="direct-vm:cache-test" />
+        <log message="Going to cache-test..." />
+        <to uri="ehcache://cache-test?configUri=ehcache.xml" />
+        <log message="${in.headers}" />
+        
+    </route>
+    
+    <route id="direct-start">
+        <from uri="direct:start" />
+        <process ref="nettyXmlProcessor" />
+    </route>
+
+    <route id="timer-route">
+        <from uri="timer://letsroll?delay=5000&amp;repeatCount=5"/>
+        <to uri="direct:start"/>
+    </route>
+
+<route id="values-route">
+
+    <from uri="direct-vm:values-route" />
+    <setHeader headerName="CamelEhcacheAction">
+        <constant>GET_ALL</constant>
+    </setHeader>
+    <setHeader headerName="CamelEhcacheKey">
+        <constant>key2</constant>
+    </setHeader>
+    <to uri="direct:start"/>
+
+    <!--<to uri="direct-vm:cache-test"/>-->
+    <log message="${body}" />
+    <setBody>
+        <simple>body</simple>
+    </setBody>
+    <marshal>
+        <json library="Jackson" unmarshalTypeName="java.lang.String" />
+    </marshal>
+</route>
+</routes>
+

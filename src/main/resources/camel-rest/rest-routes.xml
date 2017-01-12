@@ -1,0 +1,13 @@
+<rests xmlns="http://camel.apache.org/schema/spring">
+
+    <rest>
+
+        <post uri="/values">
+
+            <to uri="direct-vm:values-route"/>
+
+
+        </post>
+    </rest>
+
+</rests>

@@ -38,6 +38,29 @@
           <groupId>org.apache.camel</groupId>
           <artifactId>camel-netty4</artifactId>
       </dependency>
+      <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-ehcache</artifactId>
+      </dependency>
+
+      <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-jetty</artifactId>
+      </dependency>
+
+
+      <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-jackson</artifactId>
+      </dependency>
+
+      <dependency>
+          <groupId>javax.cache</groupId>
+          <artifactId>cache-api</artifactId>
+          <version>1.0.0</version>
+      </dependency>
+
+
   </dependencies>
 
 
@@ -58,6 +81,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
